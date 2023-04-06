@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vue.js のサンプル</title>
+    <script src="https://unpkg.com/vue@3.0.0/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <h1>Vue3</h1>
+    <div id="app">
+      <p>{{ message }}</p>
+      <p>{{ count }}</p>
+      <p>{{ user.lastName }}</p>
+      <p>{{ colors[1] }}</p>
+    </div>
+    <script>
+      const appdata = {
+        data() {
+          return {
+            message: 'Hello Vue',
+            count: 77,
+            user: {
+              lastName: 'Osonoi',
+              firsName: 'yasushi',
+              country: 'Japan',
+            },
+            colors: ['Red', 'Green', 'Blue']
+          }
+        }
+      }
+
+      Vue.createApp(appdata).mount('#app')
+    </script>
+  </body>
+</html>
