@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vue.js のサンプル</title>
+    <script src="https://unpkg.com/vue@3.0.0/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios@0.21.1/dist/axios.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.js"></script>
+  </head>
+  <body>
+    <h1>Vue3</h1>
+    <div id="app">
+        <p>
+            <input type=""text v-model="keyword">
+        </p>
+        <ul>
+            <li v-for="item in items">
+                <a v-bind:href="item.url" target="_blank">
+                    {{ item.title }}                
+                </a>
+                likes: {{ item.likes_count }}
+            </li>
+        </ul>
+    </div>
+    <script>
+      const app = Vue.createApp({
+        data: () => ({
+            items: null,
+            keyword: '',
+            message: ''
+        }),
+        watch: {
+            keyword: function(newKeyword, oldKeyword) {
+                console.log(newKeyword)
+                this.message = 'Wating for you to stop typing...'
+                this.debouncedGetAnswer()
+            }
+        },
+        mounted: function(){
+//            this.keyword = 'Javascript'
+//            this.getAnswer()
+            this.debouncedGetAnswer = _.debounce(this.getAnswer, 1000)
+        },
+        methods: {
+            getAnswer: function() {
+                if(this.keyword ===''){
+                    console.log('karamoji')
+                    this.items = null
+                    return
+                }
+                this.message = 'loading...'
+                const vm = this
+                const params = { page: 1, per_page: 20, query: this.keyword }
+                axios.get('https://qiita.com/api/v2/items', { params})
+                    .then(function(response){
+                        // console.log(response)
+                        vm.items = response.data
+                    })
+                    .catch(function(error){
+                        vm.message = 'Error!' + error
+                    })
+                    .finally(function() {
+
+                    })
+                }
+            }
+        }
+      );
+      app.mount('#app')
+    </script>
+  </body>
+</html>
