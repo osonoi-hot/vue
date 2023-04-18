@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vue.js のサンプル</title>
+    <script src="https://unpkg.com/vue@3.0.0/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <h1>Vue3</h1>
+    <div id="app">
+      <button v-on:click="onClick">Click!</button>
+      <p>{{ now }}</p>
+    </div>
+    <script>
+      const app = Vue.createApp({
+        data: () => ({
+          now: '-'
+        }),
+        methods: {
+            onClick: function() {
+//                console.log('onClick')
+                this.now = new Date().toLocaleString()
+            }
+        }
+      })
+      app.mount('#app');
+    </script>
+  </body>
+</html>
