@@ -1,0 +1,23 @@
+<script src="https://unpkg.com/vue@next"></script>
+<div id="app">
+  <span>現在の日時: {{currentDateTime.toLocaleString()}}</span>
+</div>
+ 
+<script>
+Vue.createApp({
+  data: function() {
+    return {
+      currentDateTime: new Date()
+    }
+  },
+  created: function() {
+    let self = this;
+    this.timer = setInterval(function() {
+      self.currentDateTime = new Date();
+    }, 1000);
+  },
+  beforeUnmount: function() {
+    clearInterval(this.timer);
+  }
+}).mount('#app')
+</script>
