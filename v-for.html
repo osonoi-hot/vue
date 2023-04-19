@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My first Vue app</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+        <div id="app" class="container">
+          <p>{{ message }}</p>
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th>Name</th>
+                <th>mail</th>
+                <th>tel</th>
+              </tr>
+            </thead>
+            <tr v-for="item in items">
+              <td>{{item.name}}</td>
+              <td>{{item.mail}}</td>
+              <td>{{item.tel}}</td>
+            </tr>
+          </table>
+        </div>
+        
+        <script>
+        const appdata = {
+          data() {
+            return {
+              message : '※データをテーブル表示する',
+              items:[
+                {name:'Yasushi', mail:'osonoi@cu', tel:'1111'},
+                {name:'Koh', mail:'kojima@cu', tel:'2222'},
+              ]
+            }
+          }
+        }
+      
+        let app = Vue.createApp(appdata)
+        app.mount('#app')
+        </script>
+    </body>
+      
+
+</html>
