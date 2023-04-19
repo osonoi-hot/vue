@@ -10,18 +10,15 @@
       {{ message }}
     </div>
     <script>
-      const app = Vue.createApp({
-//    const appdata = {
-        data: () => ({
-          message: 'Hello Vue'
-//      data() {
-//        return {
-//          message: "Hello Vue"
-          })
-      });
+      const appdata = {
+        data() {
+          return {
+            message: "Hello Vue"
+          }
+        }
+      }
 
-      app.mount('#app');
-//      Vue.createApp(appdata).mount('#app')
+      Vue.createApp(appdata).mount('#app')
     </script>
   </body>
 </html>
