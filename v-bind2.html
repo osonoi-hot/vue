@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My first Vue app</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+        <script src="https://unpkg.com/vue@3.0.0/dist/vue.global.js"></script>    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+      </head>
+
+<body>
+  <style>
+  .red {
+      font-size:32pt;
+      font-weight:plain;
+      font-style:normal;
+      color:red;
+  }
+  .blue {
+      font-size:24pt;
+      font-weight:bold;
+      font-style: italic;
+      color:blue;
+  }
+  </style>
+  <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+  <div id="app" class="container">
+    <p v-bind:class="{red:isRed, blue:isBlue}">
+      {{ message }}
+    </p>
+  </div>
+  
+  <script>
+  const appdata = {
+    data() {
+      return {
+        message : null,
+        isRed: true,
+        isBlue: false
+      }
+    },
+    mounted() {
+      this.message = 'This is sample page.'
+      setInterval(()=>{
+        this.isBlue = !this.isBlue
+        this.isRed = !this.isRed
+      },1000)
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+  app.mount('#app')
+  </script>
+</body>
