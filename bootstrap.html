@@ -7,8 +7,8 @@
   </head>
 
   <body>
-    <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
-    <div id="app" class="container">
+    <h1 class="bg-primary text-white display-4 px-3">Vue3</h1>
+    <div id="app" class="bg-secondary text-white display-4 px-3 container">
       <p>{{ message }}</p>
     </div>
     
@@ -24,8 +24,7 @@
       }
     }
 
-    let app = Vue.createApp(appdata)
-    app.mount('#app')
+    Vue.createApp(appdata).mount('#app')
     </script>
   </body>
 </html>
