@@ -11,18 +11,16 @@
   .red {
       font-size:32pt;
       font-weight:plain;
-      font-style:normal;
       color:red;
   }
   .blue {
       font-size:24pt;
       font-weight:bold;
-      font-style: italic;
       color:blue;
   }
   </style>
   <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
-  <div id="app" class="container">
+  <div id="app" class="bg-secondary text-white display-4 px-3 container">
     <p v-bind:class="{red:isRed, blue:isBlue}">
       {{ message }}
     </p>
@@ -46,7 +44,6 @@
     }
   }
 
-  let app = Vue.createApp(appdata)
-  app.mount('#app')
+  Vue.createApp(appdata).mount('#app')
   </script>
 </body>
