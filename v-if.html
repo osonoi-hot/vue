@@ -21,12 +21,12 @@
       }
         </style>
         <h1 class="bg-primary text-white display-4 px-3">Vue3</h1>
-        <div id="app" class="bg-secondary text-white display-4 px-3 container">
+        <div id="app" class="bg-secondary display-4 px-3 container">
           <p v-if="isBlue" class="blue">
             {{ message }}
           </p>
           <p v-else class="red">
-            ※少々お待ちください.....
+            {{ ngmessage }}
           </p>
       </div>
         
@@ -41,6 +41,7 @@
           },
           mounted() {
             this.message = 'This is sample page.'
+            this.ngmessage = '少々お待ちください。。。。'
             setInterval(()=>{
               this.isBlue = !this.isBlue
               this.isRed = !this.isRed
