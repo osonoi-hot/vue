@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My first Vue app</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+        <script src="https://unpkg.com/vue@3.0.0/dist/vue.global.js"></script>    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+      </head>
+
+
+    <body>
+      <style>
+      .red {
+           font-size:32pt;
+           font-weight:plain;
+           color:red;
+      }
+      .blue {
+           font-size:24pt;
+           font-weight:bold;
+           color:blue;
+      }
+        </style>
+        <h1 class="bg-primary text-white display-4 px-3">Vue3</h1>
+        <div id="app" class="bg-secondary display-4 px-3 container">
+          <p v-if="rem != 0" class="blue">
+            {{ message }}
+          </p>
+          <p v-else class="red">
+            {{ ngmessage }}
+          </p>
+      </div>
+        
+      <script>
+        const appdata = {
+          data() {
+            return {
+              message : null,
+              isBlue: true,
+              count: 0,
+              rem: 1
+            }
+          },
+          mounted() {
+            this.message = 'カウントスタート'
+            this.ngmessage = 'カウントリセット'
+            setInterval(()=>{
+              this.count++
+              this.rem = this.count % 10
+              this.message = 'カウント' + this.rem + '秒経過'
+            },1000)
+          }
+        }
+      
+        Vue.createApp(appdata).mount('#app')
+        </script>
+      </body>
+      
