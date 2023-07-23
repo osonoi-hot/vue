@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My first Vue app</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+        <script src="https://unpkg.com/vue@3.0.0/dist/vue.global.js"></script>    
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+      </head><html>
+    <head>
+
+      </head>
+    <body>
+        <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+        <div id="app" class="container">
+          <p>{{ message }}</p>
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>mail</th>
+                <th>tel</th>
+              </tr>
+            </thead>
+            <tr v-for="(item, index) in items">
+              <td>{{index}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.mail}}</td>
+              <td>{{item.tel}}</td>
+            </tr>
+          </table>
+        </div>
+        
+        <script>
+        const appdata = {
+          data() {
+            return {
+              message : '※データをテーブル表示する',
+              items:[
+              { name: 'Yasushi', mail: 'osonoi@cu', tel: '1111' },
+              { name: 'Koh', mail: 'kojima@cu', tel: '2222' },
+              { name: 'Alice', mail: 'alice@example.com', tel: '3333' },
+              { name: 'Bob', mail: 'bob@example.com', tel: '4444' },
+              { name: 'Charlie', mail: 'charlie@example.com', tel: '5555' },
+              { name: 'David', mail: 'david@example.com', tel: '6666' },
+              { name: 'Eve', mail: 'eve@example.com', tel: '7777' },
+              { name: 'Frank', mail: 'frank@example.com', tel: '8888' },
+              { name: 'Grace', mail: 'grace@example.com', tel: '9999' },
+              { name: 'Henry', mail: 'henry@example.com', tel: '0000' },  
+              ]
+            }
+          }
+        }
+      
+        let app = Vue.createApp(appdata)
+        app.mount('#app')
+        </script>
+    </body>
+      
+
+</html>
