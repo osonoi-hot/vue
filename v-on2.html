@@ -3,14 +3,13 @@
   <head>
     <title>My first Vue app</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
-    <script src="https://unpkg.com/vue@3.0.0/dist/vue.global.js"></script>    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+    <script src="https://unpkg.com/vue@3.0.0/dist/vue.global.js"></script>    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
   </head>
 
   <body>
     <h1 class="bg-primary text-white display-4 px-3">Vue3</h1>
     <div id="app">
-      <button v-on:click="onClick">マウスをクリック</button>
+      <button @dbclick="onClick">マウスをクリック</button>
       <p>{{ now }}</p>
     </div>
     <script>
