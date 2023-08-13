@@ -14,17 +14,17 @@
       <p>{{ now }}</p>
     </div>
     <script>
-      const app = Vue.createApp({
+      const appdata = {
         data: () => ({
           now: '-'
         }),
         methods: {
             onClick: function() {
-                this.now = new Date().toLocaleString()
+                this.now = new Date().toLocaleString('ja-JP');
             }
         }
-      })
-      app.mount('#app');
+      }
+      Vue.createApp(appdata).mount('#app');
     </script>
   </body>
 </html>

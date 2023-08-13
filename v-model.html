@@ -13,15 +13,15 @@
     </div>
 
     <script>
-        const app = Vue.createApp({
+        const appdata = {
             data() {
                 return {
                     message: '' // 初期値は空
                 };
             }
-        });
+        };
 
-        app.mount('#app');
+        Vue.createApp(appdata).mount('#app');
     </script>
 </body>
 </html>
