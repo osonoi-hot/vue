@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.js Example</title>
+  <style>
+    .demo {
+      font-family: sans-serif;
+      border: 1px solid #eee;
+      border-radius: 2px;
+      padding: 20px 30px;
+      margin-top: 1em;
+      margin-bottom: 40px;
+      user-select: none;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="components-demo" class="demo">
+    <button-counter></button-counter><br>
+    <button-counter></button-counter><br>
+    <button-counter></button-counter><br>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.2.31/dist/vue.global.js"></script>
+  <script>
+    const app = Vue.createApp({});
+
+    app.component('button-counter', {
+      data() {
+        return {
+          count: 0
+        };
+      },
+      template: `
+        <button v-on:click="count++">
+          count {{ count }} 
+        </button>`
+    });
+
+    app.mount('#components-demo');
+  </script>
+</body>
+</html>
