@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.js Example</title>
+</head>
+<body>
+    <div id="blog-post-demo" class="demo">
+        <blog-post title="Vueとの航海"></blog-post>
+        <blog-post title="Vueとの旅"></blog-post>
+        <blog-post title="Vue旅行記"></blog-post>
+    </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.2.31/dist/vue.global.js"></script>
+  <script>
+    const app = Vue.createApp({
+      components: {
+        'blog-post': {
+          props: ['title'],
+          template: `<h4>{{ title }}</h4>`
+        }
+      }
+    });
+
+    app.mount('#blog-post-demo');
+  </script>
+</body>
+</html>
