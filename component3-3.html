@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.js Example</title>
+  <style>
+    .demo {
+      font-family: sans-serif;
+      border: 1px solid #eee;
+      border-radius: 2px;
+      padding: 20px 30px;
+      margin-top: 1em;
+      margin-bottom: 40px;
+      user-select: none;
+      overflow-x: auto;
+    }
+    
+    .blog-post {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="blog-posts-events-demo" class="demo">
+    <div :style="{ fontSize: postFontSize + 'em' }">
+      <blog-post
+        v-for="post in posts"
+        :key="post.id"
+        :title="post.title"
+        @enlarge-text="postFontSize += 0.1"
+      ></blog-post>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.2.31/dist/vue.global.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          posts: [
+            { id: 1, title: 'Vueとの航海' },
+            { id: 2, title: 'Vueとの旅' },
+            { id: 3, title: 'Vue旅行記' }
+          ],
+          postFontSize: 1
+        };
+      }
+    });
+
+    app.component('blog-post', {
+      props: ['title'],
+      template: `
+        <div class="blog-post">
+          <h4>{{ title }}</h4>
+          <button @click="$emit('enlarge-text')">
+            Enlarge text
+          </button>
+        </div>
+      `
+    });
+
+    app.mount('#blog-posts-events-demo');
+  </script>
+</body>
+</html>
