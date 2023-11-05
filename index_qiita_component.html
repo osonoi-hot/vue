@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Vue.js のサンプル</title>
+    <script src="https://unpkg.com/vue@3.0.0/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios@0.21.1/dist/axios.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.js"></script>
+  </head>
+  <body>
+    <h1>Vue3</h1>
+    <div id="app">
+      <search-box></search-box>
+      <results-list></results-list>
+    </div>
+    <script>
+      const SearchBox = {
+        data() {
+          return {
+            keyword: '',
+          };
+        },
+        watch: {
+          keyword(newKeyword, oldKeyword) {
+            this.$emit('keyword-changed', newKeyword);
+          },
+        },
+        template: `
+          <div>
+            <p>
+              <input type="text" v-model="keyword" />
+            </p>
+          </div>
+        `,
+      };
+
+      const ResultsList = {
+        props: ['items', 'message'],
+        template: `
+          <div>
+            <ul>
+              <li v-for="item in items">
+                <a :href="item.url" target="_blank">{{ item.title }}</a> likes: {{ item.likes_count }}
+              </li>
+            </ul>
+            <p>{{ message }}</p>
+          </div>
+        `,
+      };
+
+      const app = Vue.createApp({
+        data() {
+          return {
+            items: null,
+            message: '',
+          };
+        },
+        methods: {
+          getAnswer(keyword) {
+            if (keyword === '') {
+              this.items = null;
+              this.message = '';
+              return;
+            }
+            this.message = 'Loading...';
+            const vm = this;
+            const params = { page: 1, per_page: 20, query: keyword };
+            axios
+              .get('https://qiita.com/api/v2/items', { params })
+              .then(function (response) {
+                vm.items = response.data;
+              })
+              .catch(function (error) {
+                vm.message = 'Error!' + error;
+              });
+          },
+        },
+        template: `
+          <div>
+            <search-box @keyword-changed="getAnswer" />
+            <results-list :items="items" :message="message" />
+          </div>
+        `,
+      });
+
+      app.component('search-box', SearchBox);
+      app.component('results-list', ResultsList);
+      app.mount('#app');
+    </script>
+  </body>
+</html>

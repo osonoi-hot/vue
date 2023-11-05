@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.js Example</title>
+  <script src="https://unpkg.com/vue@3.0.0/dist/vue.global.js"></script>
+  <script src="https://unpkg.com/axios@0.21.1/dist/axios.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.js"></script>
+  <style>
+    .demo {
+      font-family: sans-serif;
+      border: 1px solid #eee;
+      border-radius: 2px;
+      padding: 20px 30px;
+      margin-top: 1em;
+      margin-bottom: 40px;
+      user-select: none;
+      overflow-x: auto;
+    }
+</style>
+</head>
+<body>
+  <div id="blog-posts-demo" class="demo">
+    <blog-post
+      v-for="post in posts"
+      :key="post.id"
+      :title="post.title"
+    ></blog-post>
+  </div>
+  <div id="slots-demo" class="demo">
+    <alert-box>
+      何か問題が発生しました。
+    </alert-box>
+  </div>
+  <div id="app">
+    <search-box></search-box>
+    <results-list></results-list>
+  </div>
+
+  <script>
+    const Data = {
+      data() {
+        return {
+          posts: [
+            { id: 1, title: 'Vueとの航海' },
+            { id: 2, title: 'Vueとの旅' },
+            { id: 3, title: 'Vue旅行記' }
+          ]
+        }
+      }
+    }
+    
+    const app1 = Vue.createApp(Data);
+    app1.component('blog-post', {
+      props: ['title'],
+      template: `<h4>{{ title }}</h4>`
+    });
+    app1.mount('#blog-posts-demo');
+
+    const app2 = Vue.createApp({});
+    app2.component('alert-box', {
+      template: `
+        <div class="demo-alert-box">
+          <strong>Error!</strong>
+          <slot></slot>
+        </div>
+      `
+    });
+
+    const SearchBox = {
+        data() {
+          return {
+            keyword: '',
+          };
+        },
+        watch: {
+          keyword(newKeyword, oldKeyword) {
+            this.$emit('keyword-changed', newKeyword);
+          },
+        },
+        template: `
+          <div>
+            <p>
+              <input type="text" v-model="keyword" />
+            </p>
+          </div>
+        `,
+      };
+
+      const ResultsList = {
+        props: ['items', 'message'],
+        template: `
+          <div>
+            <ul>
+              <li v-for="item in items">
+                <a :href="item.url" target="_blank">{{ item.title }}</a> likes: {{ item.likes_count }}
+              </li>
+            </ul>
+            <p>{{ message }}</p>
+          </div>
+        `,
+      };
+
+      const app = Vue.createApp({
+        data() {
+          return {
+            items: null,
+            message: '',
+          };
+        },
+        methods: {
+          getAnswer(keyword) {
+            if (keyword === '') {
+              this.items = null;
+              this.message = '';
+              return;
+            }
+            this.message = 'Loading...';
+            const vm = this;
+            const params = { page: 1, per_page: 20, query: keyword };
+            axios
+              .get('https://qiita.com/api/v2/items', { params })
+              .then(function (response) {
+                vm.items = response.data;
+              })
+              .catch(function (error) {
+                vm.message = 'Error!' + error;
+              });
+          },
+        },
+        template: `
+          <div>
+            <search-box @keyword-changed="getAnswer" />
+            <results-list :items="items" :message="message" />
+          </div>
+        `,
+      });
+
+      app.component('search-box', SearchBox);
+      app.component('results-list', ResultsList);
+      app.mount('#app');
+  </script>
+</body>
+</html>
