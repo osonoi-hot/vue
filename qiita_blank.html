@@ -14,8 +14,8 @@
             <input type="text" v-model="keyword">
         </p>
         <ul>
-            <li v-for="item in items">
-                <a v-bind:href="item.url" target="_blank">
+            <li v-***="item in items">
+                <a v-****:href="item.url" target="_blank">
                     {{ item.title }}                
                 </a>
                 likes: {{ item.likes_count }}
@@ -51,8 +51,8 @@
                 }
                 this.message = 'loading...'
                 const vm = this
-                const params = { page: 1, per_page: 20, query: this.keyword }
-                axios.get('https://qiita.com/api/v2/items', { params})
+                const params = { page: 1, per_page: **, query: this.keyword }
+                axios.get('*****************', { params})
                     .then(function(response){
 //                        console.log(response)
                         vm.items = response.data;
