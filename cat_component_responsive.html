@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat API Sample</title>
+    <script src="https://unpkg.com/vue@3.2.30"></script>
+    <script src="https://unpkg.com/axios@0.23.0/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <cat-image></cat-image>
+    </div>
+
+    <script>
+        const app = Vue.createApp({});
+
+        app.component('cat-image', {
+            data() {
+                return {
+                    catImage: '',
+                };
+            },
+            methods: {
+                getRandomCatImage() {
+                    // Cat APIからランダムな猫の画像を取得
+                    axios.get('https://api.thecatapi.com/v1/images/search')
+                        .then((response) => {
+                            this.catImage = response.data[0].url;
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
+                }
+            },
+            mounted() {
+                // コンポーネントがマウントされたときに初期画像を取得
+                this.getRandomCatImage();
+            },
+            template: `
+                <div>
+                    <h1>Random Cat Image</h1>
+                    <img :src="catImage" alt="Random Cat">
+                    <button @click="getRandomCatImage">Get New Cat</button>
+                </div>
+            `,
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>
