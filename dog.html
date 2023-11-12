@@ -26,7 +26,8 @@
                     // Dog APIからランダムな猫の画像を取得
                     axios.get('https://dog.ceo/api/breeds/image/random')
                         .then((response) => {
-                            this.catImage = response.data[0].url;
+                            this.catImage = response;
+                            console.log(this.catImage);
                         })
                         .catch((error) => {
                             console.error(error);
