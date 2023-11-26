@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat API Sample</title>
+    <script src="https://unpkg.com/vue@3.2.30"></script>
+    <script src="https://unpkg.com/axios@0.23.0/dist/axios.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f2f2f2;
+        }
+
+        #app {
+            text-align: center;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>Random Cat Image</h1>
+        <img :src="catImage" alt="Random Cat">
+        <button @click="getRandomCatImage">Get New Cat</button>
+    </div>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    catImage: '',
+                };
+            },
+            methods: {
+                getRandomCatImage() {
+                    // Cat APIからランダムな猫の画像を取得
+                    axios.get('https://api.thecatapi.com/v1/images/search')
+                        .then((response) => {
+                            this.catImage = response.data[0].url;
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
+                }
+            },
+            mounted() {
+                // アプリがマウントされたときに初期画像を取得
+                this.getRandomCatImage();
+            },
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>
