@@ -9,25 +9,25 @@
 </head>
 <body>
     <div id="app">
-        <h1>Random Cat Image</h1>
-        <img :src="catImage" alt="Random Dog">
-        <button @click="getRandomCatImage">Get New Dog</button>
+        <h1>Random Dog Image</h1>
+        <img :src="dogImage" alt="Random Dog">
+        <button @click="getRandomDogImage">Get New Dog</button>
     </div>
 
     <script>
         const app = Vue.createApp({
             data() {
                 return {
-                    catImage: '',
+                    dogImage: '',
                 };
             },
             methods: {
-                getRandomCatImage() {
+                getRandomDogImage() {
                     // Dog APIからランダムな猫の画像を取得
                     axios.get('https://dog.ceo/api/breeds/image/random')
                         .then((response) => {
-                            this.catImage = response;
-                            console.log(this.catImage);
+                            this.dogImage = response.data.message;
+                            console.log(this.dogImage);
                         })
                         .catch((error) => {
                             console.error(error);
@@ -36,7 +36,7 @@
             },
             mounted() {
                 // アプリがマウントされたときに初期画像を取得
-                this.getRandomCatImage();
+                this.getRandomDogImage();
             },
         });
 
