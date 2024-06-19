@@ -27,7 +27,7 @@
             {{ message }}
           </p>
           <p v-else class="red">
-            {{ ngmessage }}
+            少々お待ちください。。。。
           </p>
       </div>
         
@@ -42,7 +42,6 @@
           },
           mounted() {
             this.message = 'This is sample page.'
-            this.ngmessage = '少々お待ちください。。。。'
             setInterval(()=>{
               this.isBlue = !this.isBlue
               this.isRed = !this.isRed
